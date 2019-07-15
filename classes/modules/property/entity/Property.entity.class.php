@@ -296,7 +296,7 @@ class PluginProperty_ModuleProperty_EntityProperty extends EntityORM
      */
     public function getUrlAdminUpdate()
     {
-        return Router::GetPath('admin/properties/' . $this->getTargetType() . '/update/' . $this->getId());
+        return Router::GetPath('admin/plugin/property/' . $this->getTargetType() . '/update/' . $this->getId());
     }
 
     /**
@@ -306,7 +306,7 @@ class PluginProperty_ModuleProperty_EntityProperty extends EntityORM
      */
     public function getUrlAdminRemove()
     {
-        return Router::GetPath('admin/properties/' . $this->getTargetType() . '/remove/' . $this->getId());
+        return Router::GetPath('admin/plugin/property/' . $this->getTargetType() . '/remove/' . $this->getId());
     }
 
     /**

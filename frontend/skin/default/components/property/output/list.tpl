@@ -3,7 +3,7 @@
 {if $properties}
     <div class="ls-property-list">
         {foreach $properties as $property}
-            {component 'property' template='output.item' property=$property}
+            {component 'property:property' template='output.item' property=$property}
         {/foreach}
     </div>
 {/if}

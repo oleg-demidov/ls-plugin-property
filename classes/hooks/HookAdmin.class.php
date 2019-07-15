@@ -9,24 +9,26 @@ class PluginProperty_HookAdmin extends Hook {
         /**
          * Хук на отображение админки
          */
-//        $this->AddHook('init_action_admin', 'InitActionAdmin');
+        $this->AddHook('init_action_admin', 'InitActionAdmin');
     }
 
     public function InitActionAdmin($aParams) { 
         
-       /**
-         * Получаем объект главного меню
+        /*
+         * если нет ни одного плагина, который использует дополнительные поля - не выводить соотв. пункт меню
          */
+        if (!$aTypes = $this->Property_GetTargetTypes()) {
+            return false;
+        }
+
+        $oSection = Engine::GetEntity('PluginAdmin_Ui_MenuSection')->SetCaption('Пользовательские поля')->SetName('properties')->SetUrl('plugin/property')->setIcon('th-list');
+        foreach ($aTypes as $sKey => $aParams) {
+            $oSection->AddItem(Engine::GetEntity('PluginAdmin_Ui_MenuItem')->SetCaption(isset($aParams['name']) ? htmlspecialchars_decode($aParams['name']) : $sKey)
+                    ->SetUrl('/admin/plugin/property/'.$sKey));
+        }
+
         $oMenu = $this->PluginAdmin_Ui_GetMenuMain();
-        /**
-         * Добавляем новый раздел
-         */
-        $oSection =  Engine::GetEntity('PluginAdmin_Ui_MenuSection');
-        
-        $oSection->SetCaption($this->Lang_Get('plugin.page.admin.nav.text'))->SetName('page')->SetUrl('plugin/page')->setIcon('file');
-        
-        
-        $oMenu->AddSection( $oSection );
+        $oMenu->AddSection($oSection);
         
         
     }

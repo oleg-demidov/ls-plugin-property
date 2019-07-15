@@ -40,8 +40,8 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
                     p.date_create  as prop_date_create,
                     p.sort  as prop_sort,
                     p.params  as prop_params
-                FROM " . Config::Get('db.table.property') . " AS p
-                	 LEFT JOIN " . Config::Get('db.table.property_value') . " as v on ( v.property_id=p.id and v.target_id = ?d )
+                FROM " . Config::Get('db.table.property_property') . " AS p
+                	 LEFT JOIN " . Config::Get('db.table.property_property_value') . " as v on ( v.property_id=p.id and v.target_id = ?d )
                 WHERE
                 	p.target_type = ?
                 ORDER BY
@@ -96,8 +96,8 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
                     p.date_create  as prop_date_create,
                     p.sort  as prop_sort,
                     p.params  as prop_params
-                FROM " . Config::Get('db.table.property') . " AS p
-                	 LEFT JOIN " . Config::Get('db.table.property_value') . " as v on ( v.property_id=p.id and v.target_id IN ( ?a ) )
+                FROM " . Config::Get('db.table.property_property') . " AS p
+                	 LEFT JOIN " . Config::Get('db.table.property_property_value') . " as v on ( v.property_id=p.id and v.target_id IN ( ?a ) )
                 WHERE
                 	p.target_type IN ( ?a )
                 ORDER BY
@@ -113,7 +113,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function RemoveValueTagsByTarget($sTargetType, $iTargetId, $iPropertyId)
     {
         $sql = "DELETE
-                FROM " . Config::Get('db.table.property_value_tag') . "
+                FROM " . Config::Get('db.table.property_property_value_tag') . "
                 WHERE
                 	target_id = ?d
                 	and
@@ -130,7 +130,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function RemoveValueSelectsByTarget($sTargetType, $iTargetId, $iPropertyId)
     {
         $sql = "DELETE
-                FROM " . Config::Get('db.table.property_value_select') . "
+                FROM " . Config::Get('db.table.property_property_value_select') . "
                 WHERE
                 	target_id = ?d
                 	and
@@ -147,7 +147,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function RemoveValueByPropertyId($iPropertyId)
     {
         $sql = "DELETE
-                FROM " . Config::Get('db.table.property_value') . "
+                FROM " . Config::Get('db.table.property_property_value') . "
                 WHERE
                 	property_id = ?d
                 	";
@@ -160,7 +160,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function RemoveValueTagByPropertyId($iPropertyId)
     {
         $sql = "DELETE
-                FROM " . Config::Get('db.table.property_value_tag') . "
+                FROM " . Config::Get('db.table.property_property_value_tag') . "
                 WHERE
                 	property_id = ?d
                 	";
@@ -173,7 +173,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function RemoveValueSelectByPropertyId($iPropertyId)
     {
         $sql = "DELETE
-                FROM " . Config::Get('db.table.property_value_select') . "
+                FROM " . Config::Get('db.table.property_property_value_select') . "
                 WHERE
                 	property_id = ?d
                 	";
@@ -186,7 +186,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function RemoveSelectByPropertyId($iPropertyId)
     {
         $sql = "DELETE
-                FROM " . Config::Get('db.table.property_select') . "
+                FROM " . Config::Get('db.table.property_property_select') . "
                 WHERE
                 	property_id = ?d
                 	";
@@ -202,7 +202,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
         $sql = "SELECT
 				text
 			FROM
-				" . Config::Get('db.table.property_value_tag') . "
+				" . Config::Get('db.table.property_property_value_tag') . "
 			WHERE
 				property_id = ?d and text LIKE ?
 			GROUP BY
@@ -224,7 +224,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
 			text,
 			count(text)	as count
 			FROM
-				" . Config::Get('db.table.property_value_tag') . "
+				" . Config::Get('db.table.property_property_value_tag') . "
 			WHERE
 				1=1
 				property_id = ?d
@@ -259,7 +259,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
 							SELECT
 								target_id
 							FROM
-								" . Config::Get('db.table.property_value_tag') . "
+								" . Config::Get('db.table.property_property_value_tag') . "
 							WHERE
 								property_id  = ?d
 								and
@@ -281,7 +281,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function UpdatePropertyByTargetType($sTargetType, $sTargetTypeNew)
     {
         $sql = "UPDATE
-                 " . Config::Get('db.table.property') . "
+                 " . Config::Get('db.table.property_property') . "
                 SET target_type = ?
                 WHERE
                 	target_type = ?
@@ -295,7 +295,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function UpdatePropertyTargetByTargetType($sTargetType, $sTargetTypeNew)
     {
         $sql = "UPDATE
-                 " . Config::Get('db.table.property_target') . "
+                 " . Config::Get('db.table.property_property_target') . "
                 SET type = ?
                 WHERE
                 	type = ?
@@ -309,7 +309,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function UpdatePropertySelectByTargetType($sTargetType, $sTargetTypeNew)
     {
         $sql = "UPDATE
-                 " . Config::Get('db.table.property_select') . "
+                 " . Config::Get('db.table.property_property_select') . "
                 SET target_type = ?
                 WHERE
                 	target_type = ?
@@ -323,7 +323,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function UpdatePropertyValueByTargetType($sTargetType, $sTargetTypeNew)
     {
         $sql = "UPDATE
-                 " . Config::Get('db.table.property_value') . "
+                 " . Config::Get('db.table.property_property_value') . "
                 SET target_type = ?
                 WHERE
                 	target_type = ?
@@ -337,7 +337,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function UpdatePropertyValueSelectByTargetType($sTargetType, $sTargetTypeNew)
     {
         $sql = "UPDATE
-                 " . Config::Get('db.table.property_value_select') . "
+                 " . Config::Get('db.table.property_property_value_select') . "
                 SET target_type = ?
                 WHERE
                 	target_type = ?
@@ -351,7 +351,7 @@ class PluginProperty_ModuleProperty_MapperProperty extends Mapper
     public function UpdatePropertyValueTagByTargetType($sTargetType, $sTargetTypeNew)
     {
         $sql = "UPDATE
-                 " . Config::Get('db.table.property_value_tag') . "
+                 " . Config::Get('db.table.property_property_value_tag') . "
                 SET target_type = ?
                 WHERE
                 	target_type = ?

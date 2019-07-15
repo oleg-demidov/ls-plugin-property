@@ -5,5 +5,5 @@
 {component_define_params params=[ 'properties' ]}
 
 {foreach $properties as $property}
-    {component 'property' template='input.item' property=$property}
+    {component 'property:property' template='input.item' property=$property}
 {/foreach}

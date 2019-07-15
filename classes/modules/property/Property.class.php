@@ -967,5 +967,12 @@ class PluginProperty_ModuleProperty extends ModuleORM
          */
         return true;
     }
+    
+    public function AttachUserBehavior($oUser) {
+        $oUser->AttachBehavior('property', [
+            'class' => PluginProperty_ModuleProperty_BehaviorEntity::class,
+            'target_type' => 'field'
+        ]);
+    }
 
 }
