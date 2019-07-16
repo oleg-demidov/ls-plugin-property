@@ -14,14 +14,7 @@ if (!class_exists('Plugin')) {
 
 class PluginProperty extends Plugin
 {
-    protected $aInherits = [
-        'entity' => [
-            'ModuleUser_EntityUser' => '_ModuleProperty_EntityUser'
-        ],
-//        'module' => [
-//            'ModuleUser' => '_ModuleUser'
-//        ]
-    ];
+    
 
 
     public function Init()
@@ -38,26 +31,7 @@ class PluginProperty extends Plugin
 
     public function Activate()
     {
-        $this->PluginProperty_Property_CreateTargetType('field', [
-            'name' => 'Поля пользователя'
-        ]);
         
-        $aFields = array(
-            array(
-                'data'=>array(
-                'type'=>PluginProperty_ModuleProperty::PROPERTY_TYPE_VARCHAR,
-                'title'=>'Сайт',
-                'code'=>'site',
-                'sort'=>100
-            ),
-            'validate_rule'=>array(
-                'min'=>3
-            ),
-            'params'=>array(),
-            'additional'=>array()
-            )
-        );
-        $this->PluginProperty_Property_CreateDefaultTargetPropertyFromPlugin($aFields, 'field');
         
         return true;
     }
