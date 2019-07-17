@@ -1,6 +1,11 @@
     
+{$attributes = [
+    maxlength => $property->getValidateRuleOne('max'),
+    minlength => $property->getValidateRuleOne('min')
+]}
+
 {if !$property->getValidateRuleOne('allowEmpty')}
-    {$required = true}
+    {$attributes['required'] = true}
 {/if}
 
     
@@ -11,9 +16,5 @@
     label = $property->getTitle()
     placeholder = $property->getParam('placeholder')
     type = 'text'
-    attributes = [
-        required => $required,
-        maxlength => $property->getValidateRuleOne('max'),
-        minlength => $property->getValidateRuleOne('min')
-    ]
+    attributes = $attributes
 }
