@@ -73,6 +73,10 @@ class PluginProperty_ModuleProperty_EntityValueTypeVarchar extends PluginPropert
         if (isset($aParamsRaw['default'])) {
             $aParams['default'] = htmlspecialchars($aParamsRaw['default']);
         }
+        
+        if (isset($aParamsRaw['placeholder'])) {
+            $aParams['placeholder'] = htmlspecialchars($aParamsRaw['placeholder']);
+        }
 
         return $aParams;
     }

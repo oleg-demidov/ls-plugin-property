@@ -9,6 +9,7 @@
     value = $property->getValue()->getValueForForm()
     desc  = $property->getDescription()
     label = $property->getTitle()
+    placeholder = $property->getParam('placeholder')
     type = 'text'
     attributes = [
         required => $required,
