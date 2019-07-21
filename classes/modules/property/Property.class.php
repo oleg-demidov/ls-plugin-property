@@ -33,6 +33,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
     const PROPERTY_TYPE_INT = 'int';
     const PROPERTY_TYPE_FLOAT = 'float';
     const PROPERTY_TYPE_VARCHAR = 'varchar';
+    const PROPERTY_TYPE_URL = 'url';
     const PROPERTY_TYPE_TEXT = 'text';
     const PROPERTY_TYPE_CHECKBOX = 'checkbox';
     const PROPERTY_TYPE_TAGS = 'tags';
@@ -59,6 +60,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
         self::PROPERTY_TYPE_INT,
         self::PROPERTY_TYPE_FLOAT,
         self::PROPERTY_TYPE_VARCHAR,
+        self::PROPERTY_TYPE_URL,
         self::PROPERTY_TYPE_TEXT,
         self::PROPERTY_TYPE_CHECKBOX,
         self::PROPERTY_TYPE_TAGS,

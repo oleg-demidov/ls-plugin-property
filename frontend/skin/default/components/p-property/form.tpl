@@ -24,6 +24,7 @@
         [ 'value' => 'int',         'text' => 'Целое число' ],
         [ 'value' => 'float',       'text' => 'Дробное число' ],
         [ 'value' => 'varchar',     'text' => 'Строка' ],
+        [ 'value' => 'url',         'text' => 'URL' ],
         [ 'value' => 'text',        'text' => 'Текст' ],
         [ 'value' => 'checkbox',    'text' => 'Чекбокс' ],
         [ 'value' => 'date',        'text' => 'Дата' ],
