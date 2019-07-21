@@ -6,6 +6,12 @@
 
 {component 'admin:field.text' name='param[placeholder]' value=$propertyParams.placeholder label='Заполнитель'}
 
+{component 'admin:field.text' 
+    note    =  'icon:style'
+    name    = 'param[icon]' 
+    value   =  $propertyParams.icon
+    label   = 'Иконка'}
+
 <h3 class="page-sub-header mt-30">Правила валидации</h3>
 
 {component 'admin:field.checkbox' name='validate[allowEmpty]' checked=!$rules.allowEmpty label='Обязательно к заполнению'}

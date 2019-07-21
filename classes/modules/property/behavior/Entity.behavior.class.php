@@ -79,7 +79,7 @@ class PluginProperty_ModuleProperty_BehaviorEntity extends Behavior
      */
     public function CallbackAfterDelete()
     {
-        $this->PluginProperty_Property_RemovePropertiesValue($this->oObject);
+        $this->PluginProperty_Property_RemovePropertiesValue($this->oObject, $this);
     }
 
     /**
@@ -90,7 +90,7 @@ class PluginProperty_ModuleProperty_BehaviorEntity extends Behavior
      */
     public function ValidatePropertiesCheck()
     {
-        return $this->PluginProperty_Property_ValidateEntityPropertiesCheck($this->oObject);
+        return $this->PluginProperty_Property_ValidateEntityPropertiesCheck($this->oObject, $this);
     }
 
     /**
@@ -100,7 +100,7 @@ class PluginProperty_ModuleProperty_BehaviorEntity extends Behavior
      */
     public function getPropertyList()
     {
-        return $this->PluginProperty_Property_GetEntityPropertyList($this->oObject);
+        return $this->PluginProperty_Property_GetEntityPropertyList($this->oObject, $this);
     }
 
     /**
@@ -113,7 +113,7 @@ class PluginProperty_ModuleProperty_BehaviorEntity extends Behavior
      */
     public function getPropertyValue($sPropertyId)
     {
-        return $this->PluginProperty_Property_GetEntityPropertyValue($this->oObject, $sPropertyId);
+        return $this->PluginProperty_Property_GetEntityPropertyValue($this->oObject, $this, $sPropertyId);
     }
 
     /**
@@ -125,7 +125,7 @@ class PluginProperty_ModuleProperty_BehaviorEntity extends Behavior
      */
     public function getProperty($sPropertyId)
     {
-        return $this->PluginProperty_Property_GetEntityProperty($this->oObject, $sPropertyId);
+        return $this->PluginProperty_Property_GetEntityProperty($this->oObject, $this, $sPropertyId);
     }
 
     /**

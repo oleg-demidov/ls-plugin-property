@@ -77,7 +77,19 @@ class PluginProperty_ModuleProperty_EntityValueTypeVarchar extends PluginPropert
         if (isset($aParamsRaw['placeholder'])) {
             $aParams['placeholder'] = htmlspecialchars($aParamsRaw['placeholder']);
         }
+        
+        if (isset($aParamsRaw['icon'])) {
+            $aParams['icon'] = htmlspecialchars($aParamsRaw['icon']);
+            
+//            $iconExplode = explode(':', $aParams['icon']);
+//            $aParams['icon'] = [
+//                'icon' => array_shift($iconExplode),
+//                'style' => array_shift($iconExplode)
+//            ];
+                
+        }
 
         return $aParams;
     }
+    
 }

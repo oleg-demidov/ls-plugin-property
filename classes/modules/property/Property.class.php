@@ -228,11 +228,11 @@ class PluginProperty_ModuleProperty extends ModuleORM
      *
      * @param Entity $oTarget
      */
-    public function RemovePropertiesValue($oTarget)
+    public function RemovePropertiesValue($oTarget, $oBehavior)
     {
-        $aProperties = $this->PluginProperty_Property_GetPropertyItemsByFilter(array('target_type' => $oTarget->property->getPropertyTargetType()));
+        $aProperties = $this->PluginProperty_Property_GetPropertyItemsByFilter(array('target_type' => $oBehavior->getPropertyTargetType()));
         if ($aProperties) {
-            $this->AttachValueForProperties($aProperties, $oTarget->property->getPropertyTargetType(),
+            $this->AttachValueForProperties($aProperties, $oBehavior->getPropertyTargetType(),
                 $oTarget->getId());
             foreach ($aProperties as $oProperty) {
                 $oValue = $oProperty->getValue();
@@ -258,7 +258,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
      *
      * @return bool|string
      */
-    public function ValidateEntityPropertiesCheck($oTarget)
+    public function ValidateEntityPropertiesCheck($oTarget, $oBehavior)
     {
         /**
          * Пробуем получить свойства из реквеста
@@ -269,8 +269,8 @@ class PluginProperty_ModuleProperty extends ModuleORM
         /**
          * Получаем весь список свойств у объекта
          */
-        $aPropertiesObject = $this->PluginProperty_Property_GetPropertyItemsByFilter(array('target_type' => $oTarget->property->getPropertyTargetType()));
-        $this->PluginProperty_Property_AttachValueForProperties($aPropertiesObject, $oTarget->property->getPropertyTargetType(),
+        $aPropertiesObject = $this->PluginProperty_Property_GetPropertyItemsByFilter(array('target_type' => $oBehavior->getPropertyTargetType()));
+        $this->PluginProperty_Property_AttachValueForProperties($aPropertiesObject, $oBehavior->getPropertyTargetType(),
             $oTarget->getId());
         foreach ($aPropertiesObject as $oProperty) {
             $oValue = $oProperty->getValue();
@@ -300,9 +300,9 @@ class PluginProperty_ModuleProperty extends ModuleORM
      *
      * @return null|mixed
      */
-    public function GetEntityPropertyValue($oTarget, $sPropertyId)
+    public function GetEntityPropertyValue($oTarget, $oBehavior, $sPropertyId)
     {
-        if ($oProperty = $this->GetEntityPropertyValueObject($oTarget, $sPropertyId)) {
+        if ($oProperty = $this->GetEntityPropertyValueObject($oTarget, $oBehavior, $sPropertyId)) {
             return $oProperty->getValue()->getValueForDisplay();
         }
         return null;
@@ -316,9 +316,9 @@ class PluginProperty_ModuleProperty extends ModuleORM
      *
      * @return null|PluginProperty_ModuleProperty_EntityProperty
      */
-    public function GetEntityProperty($oTarget, $sPropertyId)
+    public function GetEntityProperty($oTarget, $oBehavior, $sPropertyId)
     {
-        if ($oProperty = $this->GetEntityPropertyValueObject($oTarget, $sPropertyId)) {
+        if ($oProperty = $this->GetEntityPropertyValueObject($oTarget, $oBehavior, $sPropertyId)) {
             return $oProperty;
         }
         return null;
@@ -331,9 +331,9 @@ class PluginProperty_ModuleProperty extends ModuleORM
      *
      * @return array
      */
-    public function GetEntityPropertyList($oTarget)
+    public function GetEntityPropertyList($oTarget, $oBehavior)
     {
-        $sTargetType = $oTarget->property->getPropertyTargetType();
+        $sTargetType = $oBehavior->getPropertyTargetType();
         /**
          * Проверяем зарегистрирован ли такой тип
          */
@@ -341,7 +341,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
             return array();
         }
         if (!$oTarget->getPropertyIsLoadAll()) {
-            $aProperties = $this->oMapper->GetPropertiesValueByTarget($oTarget->property->getPropertyTargetType(),
+            $aProperties = $this->oMapper->GetPropertiesValueByTarget($oBehavior->getPropertyTargetType(),
                 $oTarget->getId());
             $this->AttachPropertiesForTarget($oTarget, $aProperties);
         }
@@ -373,13 +373,13 @@ class PluginProperty_ModuleProperty extends ModuleORM
      *
      * @return null
      */
-    public function GetEntityPropertyValueObject($oTarget, $sPropertyId)
+    public function GetEntityPropertyValueObject($oTarget, $oBehavior, $sPropertyId)
     {
         if (!$oTarget->getPropertyIsLoadAll()) {
             /**
              * Загружаем все свойства
              */
-            $aProperties = $this->oMapper->GetPropertiesValueByTarget($oTarget->property->getPropertyTargetType(),
+            $aProperties = $this->oMapper->GetPropertiesValueByTarget($oBehavior->getPropertyTargetType(),
                 $oTarget->getId());
             $this->AttachPropertiesForTarget($oTarget, $aProperties);
         }
@@ -392,7 +392,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
                 return null;
             }
         }
-        $aProperties = $oTarget->property->getPropertyList();
+        $aProperties = $oBehavior->getPropertyList();
         if (isset($aProperties[$sPropertyId])) {
             return $aProperties[$sPropertyId];
         }
@@ -406,7 +406,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
      * @param array $aFilter
      * @param null|string $sEntityFull
      */
-    public function RewriteGetItemsByFilter($aResult, $aFilter = array(), $sEntityFull = null)
+    public function RewriteGetItemsByFilter($aResult, $oBehavior, $aFilter = array())
     {
         if (!$aResult) {
             return;
@@ -432,10 +432,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
         if (!$aEntitiesWork) {
             return;
         }
-        $oEntityFirst = reset($aEntitiesWork);
-        if (!$oEntityFirst->property) {
-            return;
-        }
+        
         /**
          * Проверяем необходимость цеплять свойства
          */
@@ -443,7 +440,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
             $aEntitiesId = array();
             $aTargetTypes = array();
             foreach ($aEntitiesWork as $oEntity) {
-                $sTargetType = $oEntity->property->getPropertyTargetType();
+                $sTargetType = $oBehavior->getPropertyTargetType();
                 if ($this->IsAllowTargetType($sTargetType)) {
                     $aEntitiesId[] = $oEntity->getId();
                     $aTargetTypes[] = $sTargetType;
@@ -486,7 +483,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
                 foreach ($aEntitiesWork as $oEntity) {
                     $aPropertiesClone = array();
                     foreach ($aProperties as $oProperty) {
-                        if ($oEntity->property->getPropertyTargetType() != $oProperty->getTargetType()) {
+                        if ($oBehavior->getPropertyTargetType() != $oProperty->getTargetType()) {
                             continue;
                         }
                         $oPropertyNew = clone $oProperty;
@@ -519,12 +516,10 @@ class PluginProperty_ModuleProperty extends ModuleORM
      *
      * @return array
      */
-    public function RewriteFilter($aFilter, $sEntityFull)
+    public function RewriteFilter($aFilter,$oBehavior, $sEntityFull)
     {
         $oEntitySample = Engine::GetEntity($sEntityFull);
-        if (!$oEntitySample->property) {
-            return $aFilter;
-        }
+        
 
         if (!isset($aFilter['#join'])) {
             $aFilter['#join'] = array();
@@ -563,7 +558,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
          * Получаем данные по полям
          */
         if ($aPropFields) {
-            $sTargetType = $oEntitySample->property->getPropertyTargetType();
+            $sTargetType = $oBehavior->getPropertyTargetType();
             $aProperties = $this->PluginProperty_Property_GetPropertyItemsByFilter(array(
                 'code in'     => array_keys($aPropFields),
                 'target_type' => $sTargetType
@@ -968,11 +963,6 @@ class PluginProperty_ModuleProperty extends ModuleORM
         return true;
     }
     
-    public function AttachUserBehavior($oUser) {
-        $oUser->AttachBehavior('property', [
-            'class' => PluginProperty_ModuleProperty_BehaviorEntity::class,
-            'target_type' => 'field'
-        ]);
-    }
+   
 
 }

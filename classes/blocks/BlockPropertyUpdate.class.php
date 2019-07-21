@@ -41,7 +41,7 @@ class PluginProperty_BlockPropertyUpdate extends Block
         }
 
         $aBehaviors = $oTarget->GetBehaviors();
-        foreach ($aBehaviors as $oBehavior) {
+        foreach ($aBehaviors as $oBehavior) { 
             /**
              * Определяем нужное нам поведение
              */
@@ -53,7 +53,7 @@ class PluginProperty_BlockPropertyUpdate extends Block
                     $oBehavior->setParam('target_type', $sTargetType);
                 }
                 $aProperties = $this->PluginProperty_Property_GetPropertiesForUpdate($oBehavior->getPropertyTargetType(),
-                    $oTarget->getId());
+                    $oTarget->getId());                
                 $this->Viewer_Assign('properties', $aProperties, true);
                 break;
             }

@@ -113,7 +113,7 @@ class PluginProperty_ModuleProperty_EntityProperty extends EntityORM
 
     public function ValidateCheckParamsRaw()
     {
-        $aParamsRaw = $this->getParamsRaw();
+        $aParamsRaw = $this->getParamsRaw();        $this->Logger_Notice(print_r($aParamsRaw,true));
         /**
          * Валидация зависит от типа
          */
@@ -150,11 +150,15 @@ class PluginProperty_ModuleProperty_EntityProperty extends EntityORM
                 /**
                  * Выставляем дефолтные значения параметров
                  */
-                $this->setParams($oValueType->getParamsDefault());
+                if(!$this->getParams()){
+                    $this->setParams($oValueType->getParamsDefault());
+                }
                 /**
                  * Выставляем дефолтные значения параметров валидации
                  */
-                $this->setValidateRules($oValueType->getValidateRulesDefault());
+                if(!$this->getValidateRules()){
+                    $this->setValidateRules($oValueType->getValidateRulesDefault());
+                }
             }
         }
         return $bResult;

@@ -27,6 +27,15 @@
  */
 class PluginProperty_ModuleProperty_BehaviorModule extends Behavior
 {
+    
+    /**
+     * Дефолтные параметры
+     *
+     * @var array
+     */
+    protected $aParams = array(
+        'target_type' => '',
+    );
     /**
      * Список хуков
      *
@@ -56,7 +65,7 @@ class PluginProperty_ModuleProperty_BehaviorModule extends Behavior
     {
         $aEntities = $aParams['aEntities'];
         $aFilter = $aParams['aFilter'];
-        $this->PluginProperty_Property_RewriteGetItemsByFilter($aEntities, $aFilter);
+        $this->PluginProperty_Property_RewriteGetItemsByFilter($aEntities, $this, $aFilter);
     }
 
     /**
@@ -66,7 +75,11 @@ class PluginProperty_ModuleProperty_BehaviorModule extends Behavior
      */
     public function CallbackGetItemsByFilterBefore($aParams)
     {
-        $aFilter = $this->PluginProperty_Property_RewriteFilter($aParams['aFilter'], $aParams['sEntityFull']);
+        $aFilter = $this->PluginProperty_Property_RewriteFilter($aParams['aFilter'], $this, $aParams['sEntityFull']);
         $aParams['aFilter'] = $aFilter;
+    }
+    
+    public function getPropertyTargetType() {
+        $this->getParam('target_type');
     }
 }
