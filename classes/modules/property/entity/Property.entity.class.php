@@ -29,7 +29,7 @@ class PluginProperty_ModuleProperty_EntityProperty extends EntityORM
 {
 
     protected $aValidateRules = array(
-        array('type', 'check_type', 'on' => array('create', 'auto')),
+        array('type', 'check_type', 'on' => array('create', 'update', 'auto')),
         array(
             'code',
             'regexp',
@@ -113,7 +113,7 @@ class PluginProperty_ModuleProperty_EntityProperty extends EntityORM
 
     public function ValidateCheckParamsRaw()
     {
-        $aParamsRaw = $this->getParamsRaw();        $this->Logger_Notice(print_r($aParamsRaw,true));
+        $aParamsRaw = $this->getParamsRaw();
         /**
          * Валидация зависит от типа
          */

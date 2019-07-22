@@ -28,7 +28,7 @@
 class PluginProperty_ModuleProperty_EntityValueTypeUrl extends PluginProperty_ModuleProperty_EntityValueType
 {
 
-    public function getValueForDisplay()
+    public function getValueForDisplay($bRemovePtotocol = false)
     {
         return $this->getValueObject()->getValueVarchar();
     }

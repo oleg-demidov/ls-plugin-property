@@ -33,6 +33,7 @@ return [
         'validate_value_select_wrong'     => 'Проверьте корректность выбранных элементов',
         'validate_value_select_only_one'  => 'Можно выбрать только один элемент',
         'validate_value_video_wrong'      => 'Необходимо указать корректную ссылку на видео: YouTube, Vimeo',
+        'validate_value_url'              => 'Необходимо указать корректную ссылку от %%min%% до %%max%% символов',
         'validate_value_wrong'            => 'Поле "%%field%%": ',
         'validate_value_wrong_base'       => 'неверное значение',
         'create_error'                    => 'Возникла ошибка при добавлении поля',

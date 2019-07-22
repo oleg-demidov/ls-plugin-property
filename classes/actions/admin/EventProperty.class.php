@@ -110,10 +110,10 @@ class PluginProperty_ActionAdmin_EventProperty extends Event
         if (getRequest('property_update_submit')) {
             $this->Security_ValidateSendForm();
             $oProperty->_setValidateScenario('update');
-            $oProperty->_setDataSafe(getRequest('property'));
+            $oProperty->_setDataSafe(getRequest('property'));$this->Logger_Notice(print_r(getRequest('property'), true));
             $oProperty->setValidateRulesRaw(getRequest('validate'));
-            $oProperty->setParamsRaw(getRequest('param'));
-            if ($oProperty->_Validate()) {
+            $oProperty->setParamsRaw(getRequest('param'));$this->Logger_Notice(print_r($oProperty->_getData(), true));
+            if ($oProperty->_Validate()) {                $this->Logger_Notice(print_r($oProperty->_getData(), true));
                 if ($oProperty->Update()) {
                     /**
                      * Дополнительная обработка, например, сохранение значений селекта

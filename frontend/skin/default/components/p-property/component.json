@@ -8,6 +8,7 @@
         "type-checkbox": "types/type.checkbox.tpl",
         "type-float": "types/type.float.tpl",
         "type-varchar": "types/type.varchar.tpl",
+        "type-url": "types/type.url.tpl",
         "type-video_link": "types/type.video_link.tpl",
         "type-tags": "types/type.tags.tpl",
         "type-text": "types/type.text.tpl",
