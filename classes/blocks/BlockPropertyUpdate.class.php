@@ -53,7 +53,7 @@ class PluginProperty_BlockPropertyUpdate extends Block
                     $oBehavior->setParam('target_type', $sTargetType);
                 }
                 $aProperties = $this->PluginProperty_Property_GetPropertiesForUpdate($oBehavior->getPropertyTargetType(),
-                    $oTarget->getId());                
+                    $oTarget->getId());               
                 $this->Viewer_Assign('properties', $aProperties, true);
                 break;
             }

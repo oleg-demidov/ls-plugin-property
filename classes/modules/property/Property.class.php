@@ -280,7 +280,7 @@ class PluginProperty_ModuleProperty extends ModuleORM
             /**
              * Валидируем значение
              */
-            $oValueType = $oValue->getValueTypeObject();
+            $oValueType = $oValue->getValueTypeObject();            //$this->Logger_Notice($sValue. get_class($oValueType));
             $oValueType->setValueForValidate($sValue);
             if (true === ($sRes = $oValueType->validate())) {
                 $oValueType->setValue($oValueType->getValueForValidate());

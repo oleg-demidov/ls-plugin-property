@@ -5,7 +5,7 @@
 CREATE TABLE `prefix_property` (
   `id` int(11) NOT NULL,
   `target_type` varchar(50) NOT NULL,
-  `type` enum('int','float','varchar', 'url','text','checkbox','select','tags','video_link') NOT NULL DEFAULT 'text',
+  `type` enum('int','float','varchar', 'url','text','checkbox','select','tags','video_link', 'url') NOT NULL DEFAULT 'text',
   `code` varchar(50) NOT NULL,
   `title` varchar(250) NOT NULL,
   `date_create` datetime NOT NULL,
