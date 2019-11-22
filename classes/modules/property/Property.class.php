@@ -275,12 +275,12 @@ class PluginProperty_ModuleProperty extends ModuleORM
         $this->PluginProperty_Property_AttachValueForProperties($aPropertiesObject, $oBehavior->getPropertyTargetType(),
             $oTarget->getId());
         foreach ($aPropertiesObject as $oProperty) {
-            $oValue = $oProperty->getValue();
+            $oValue = $oProperty->getValue();    
             $sValue = isset($aPropertiesValue[$oProperty->getId()]) ? $aPropertiesValue[$oProperty->getId()] : null;
             /**
              * Валидируем значение
              */
-            $oValueType = $oValue->getValueTypeObject();
+            $oValueType = $oValue->getValueTypeObject();          
             $oValueType->setValueForValidate($sValue);
             if (true === ($sRes = $oValueType->validate())) {
                 $oValueType->setValue($oValueType->getValueForValidate());
