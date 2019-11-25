@@ -216,8 +216,8 @@ class PluginProperty_ModuleProperty extends ModuleORM
     public function UpdatePropertiesValue($aProperties, $oTarget)
     {
         if ($aProperties) {
-            foreach ($aProperties as $oProperty) {
-                $oValue = $oProperty->getValue();
+            foreach ($aProperties as $oProperty) { 
+                $oValue = $oProperty->getValue();  
                 $oValue->setTargetId(is_object($oTarget) ? $oTarget->getId() : $oTarget);
                 $oValue->setPropertyType($oProperty->getType());
                 $oValue->Save();
@@ -281,8 +281,9 @@ class PluginProperty_ModuleProperty extends ModuleORM
              * Валидируем значение
              */
             $oValueType = $oValue->getValueTypeObject();          
-            $oValueType->setValueForValidate($sValue);
-            if (true === ($sRes = $oValueType->validate())) {
+            $oValueType->setValueForValidate($sValue);         
+            if (true === ($sRes = $oValueType->validate())) { 
+                
                 $oValueType->setValue($oValueType->getValueForValidate());
                 $aPropertiesResult[$oProperty->getId()] = $oProperty;
             } else {
@@ -290,7 +291,8 @@ class PluginProperty_ModuleProperty extends ModuleORM
                     array('field' => $oProperty->getTitle())) . ($sRes ? $sRes : $this->Lang_Get('plugin.property.notices.validate_value_wrong_base'));
             }
         }
-        $oTarget->setPropertiesObject($aPropertiesResult);
+        
+        $oBehavior->setPropertiesForSave($aPropertiesResult);
         return true;
     }
 

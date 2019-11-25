@@ -113,7 +113,7 @@ class PluginProperty_ActionAdmin_EventProperty extends Event
             $oProperty->_setDataSafe(getRequest('property'));
             $oProperty->setValidateRulesRaw(getRequest('validate'));
             $oProperty->setParamsRaw(getRequest('param'));
-            if ($oProperty->_Validate()) {                $this->Logger_Notice(print_r($oProperty->_getData(), true));
+            if ($oProperty->_Validate()) {    
                 if ($oProperty->Update()) {
                     /**
                      * Дополнительная обработка, например, сохранение значений селекта

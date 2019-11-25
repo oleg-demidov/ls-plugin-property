@@ -45,6 +45,8 @@ class PluginProperty_ModuleProperty_BehaviorEntity extends Behavior
         'after_save'     => 'CallbackAfterSave',
         'after_delete'   => 'CallbackAfterDelete',
     );
+    
+    protected $aProperties;
 
     /**
      * Коллбэк
@@ -62,6 +64,7 @@ class PluginProperty_ModuleProperty_BehaviorEntity extends Behavior
                 $aParams['bResult'] = !$this->oObject->_hasValidateErrors();
             }
         }
+        
     }
 
     /**
@@ -70,7 +73,8 @@ class PluginProperty_ModuleProperty_BehaviorEntity extends Behavior
      */
     public function CallbackAfterSave()
     {
-        $this->PluginProperty_Property_UpdatePropertiesValue($this->oObject->getPropertiesObject(), $this->oObject);
+        
+        $this->PluginProperty_Property_UpdatePropertiesValue($this->getPropertiesForSave(), $this->oObject);
     }
 
     /**
@@ -145,5 +149,13 @@ class PluginProperty_ModuleProperty_BehaviorEntity extends Behavior
         if (func_method_exists($this->oObject, 'getPropertyTargetType', 'public')) {
             return call_user_func(array($this->oObject, 'getPropertyTargetType'));
         }
+    }
+    
+    public function setPropertiesForSave($aProperties) {
+        $this->aProperties = $aProperties;
+    }
+    
+    public function getPropertiesForSave() {
+        return $this->aProperties;
     }
 }

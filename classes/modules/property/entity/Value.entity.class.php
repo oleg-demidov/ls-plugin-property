@@ -62,7 +62,8 @@ class PluginProperty_ModuleProperty_EntityValue extends EntityORM
     public function getValueTypeObject()
     {
         if (!$this->_getDataOne('value_type_object')) {
-            $oObject = Engine::GetEntity('PluginProperty_ModuleProperty_EntityValueType' . func_camelize($this->getProperty()->getType()));
+            $sType = $this->getProperty()?$this->getProperty()->getType():$this->getPropertyType();
+            $oObject = Engine::GetEntity('PluginProperty_ModuleProperty_EntityValueType' . func_camelize($sType));
             $oObject->setValueObject($this);
             $this->setValueTypeObject($oObject);
         }
