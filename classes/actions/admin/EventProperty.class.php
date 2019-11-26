@@ -85,9 +85,9 @@ class PluginProperty_ActionAdmin_EventProperty extends Event
          * Удаляем
          */
         if ($oProperty->Delete()) {
-            $this->Message_AddNotice($this->Lang('notices.properties.remove_done'), null, true);
+            $this->Message_AddNotice($this->Lang_Get('notices.properties.remove_done'), null, true);
         } else {
-            $this->Message_AddError($this->Lang('errors.properties.not_removed'), null, true);
+            $this->Message_AddError($this->Lang_Get('errors.properties.not_removed'), null, true);
         }
 
         Router::LocationAction("admin/plugin/property/{$sTargetType}");
